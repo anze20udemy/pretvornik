@@ -6,17 +6,27 @@
  */
 
 $(document).one('pageinit', function (e) {
+
     let original = prompt('Za koliko obrokov je originalni recept?');
     let your = prompt('Koliko obrokov želiš pripraviti?');
-    document.getElementById("output").style.visibility = "visible";
+    document.getElementById("output").style.visibility = "hidden";
 
-    document.getElementById("lbsInput").addEventListener("input", function(e) {
+    $('#lbsInput').on("input", function(e) {
+        if (e.keyCode === 10 || e.keyCode === 13) {
+            e.preventDefault();
+        }
         document.getElementById("output").style.visibility = "visible";
         let lbs = e.target.value;
-        document.getElementById("gramsOutput").innerHTML = lbs / original * your;
-        document.getElementById("kgOutput").innerHTML = lbs / 2.2046;
-        document.getElementById("ozOutput").innerHTML = lbs * 16;
+        let value = lbs / original * your;
+        document.getElementById("gramsOutput").innerHTML = Math.round(value);
+        // document.getElementById("kgOutput").innerHTML = lbs / 2.2046;
+        // document.getElementById("ozOutput").innerHTML = lbs * 16;
     });
+
+    $('#btn-reset').on('click', function () {
+        location.reload();
+    })
+
 });
 
 
